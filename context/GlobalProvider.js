@@ -34,7 +34,7 @@ const GlobalProvider = ({children}) => {
             setUser,
             isLoading
         }}>
-
+            {children}
         </GlobalContext.Provider>
     );
 }
