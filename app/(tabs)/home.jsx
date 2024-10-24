@@ -1,6 +1,7 @@
 import { FlatList, Text, View, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import {images} from '../../constants'
+import SearchInput from '../../components/SearchInput';
 export default function Home() {
   return (
     <SafeAreaView className='bg-primary'>
@@ -25,6 +26,7 @@ export default function Home() {
                 />
             </View>
           </View>
+          <SearchInput/>
         </View>
       )}
       />

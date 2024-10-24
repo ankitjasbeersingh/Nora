@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Image, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { icons } from '../constants';
 
 export default function FormField({title, value, placeholder, handleChangeText, otherStyles, ...props}) {
@@ -33,5 +33,3 @@ export default function FormField({title, value, placeholder, handleChangeText, 
   );
 }
 
-const styles = StyleSheet.create({
-});
