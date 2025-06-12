@@ -1,17 +1,30 @@
-import { FlatList, Text, View, Image, RefreshControl } from 'react-native';
+import { FlatList, Text, View, Image, RefreshControl, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import {images} from '../../constants'
 import SearchInput from '../../components/SearchInput';
 import Trending from '../../components/Trending';
 import EmptyState from '../../components/EmptyState';
+import { useEffect, useState } from 'react';
+import {getAllPosts} from '../../lib/appwrite';
+import useAppwrite from '../../lib/useAppwrite';
+import VideoCard from '../../components/VideoCard';
 export default function Home() {
+  const {data: posts, refetch} = useAppwrite(getAllPosts);
+  const [refreshing, setRefreshing] = useState(false);
+
+  const onRefresh = async () => {
+    setRefreshing(true);
+    await refetch();
+    setRefreshing(false);
+  }
+  
   return (
     <SafeAreaView className='bg-primary h-full'>
       <FlatList
-      data={[{id: 1},{ id: 2},{id:3}]}
+      data={posts}
       keyExtractor={(item) => item.id}
       renderItem={({item}) => (
-        <Text className='text-3xl text-white'>{item.id}</Text>
+        <VideoCard video={item}/>
       )}
       ListHeaderComponent={() => (
         <View className="my-6 px-4 space-y-6">
@@ -42,7 +55,7 @@ export default function Home() {
         title="No Videos Found"
         subtitle="Be the first one to upload a video"/>
       )}
-      refreshControl={<RefreshControl/>}
+      refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh}/>}
       />
     </SafeAreaView>
   );
